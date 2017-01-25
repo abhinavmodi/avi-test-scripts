@@ -4,7 +4,7 @@
 
 These set of scripts are useful for performance and scale testing SSL/TLS Transactions/sec for the Avi Vantage product. Initial testing was performed on GCP.
 
-Refer to this blog for an overview and details.
+Refer to this blog (TBI) for an overview and details.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ Refer to this blog for an overview and details.
 ## Getting Started in GCP
 
 - To reach a million TPS, you need atleast 40 instances of type n1-highcpu-32 and 320 instances of type n1-highcpu-16 for use. Create or use a /23 subnet with sufficient IP addresses
-- Create a custom centos7 image with packages docker, psmisc and httpd-tools installed using these instructions from GCP
+- Create a custom centos7 image with packages docker, psmisc and httpd-tools installed using these [instructions](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images) from GCP
 - Create a n1-standard-4 instance, download and start a Avi Controller instance following the instructions here (TBI)
 - Create another g1-small instance with scopes ‘compute-rw’ for use as a bootstrap instance to run these test scripts. git clone or copy these scripts to this instance
 
