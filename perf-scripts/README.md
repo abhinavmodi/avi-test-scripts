@@ -4,7 +4,7 @@
 
 These set of scripts are useful for performance and scale testing SSL/TLS Transactions/sec for the Avi Vantage product. Initial testing was performed on GCP.
 
-Refer to this blog (TBI) for an overview and details.
+Refer to this [blog] (https://blog.avinetworks.com/elastic-load-balancing-at-ludicrous-scale) for an overview and details.
 
 ## Requirements
 
