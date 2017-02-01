@@ -15,7 +15,7 @@ Refer to this [blog] (https://blog.avinetworks.com/elastic-load-balancing-at-lud
 
 - To reach a million TPS, you need atleast 40 instances of type n1-highcpu-32 and 320 instances of type n1-highcpu-16 for use. Create or use a /23 subnet with sufficient IP addresses
 - Create a custom centos7 image with packages docker, psmisc and httpd-tools installed using these [instructions](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images) from GCP
-- Create a n1-standard-4 instance, download and start a Avi Controller instance following the instructions here (TBI)
+- Create a n1-standard-4 instance, download and start a Avi Controller instance following the instructions [here] (https://kb.avinetworks.com/avi-deployment-guide-for-google-cloud-platform-gcp/)
 - Create another g1-small instance with scopes ‘compute-rw’ for use as a bootstrap instance to run these test scripts. git clone or copy these scripts to this instance
 
 ## Configure config.yaml
