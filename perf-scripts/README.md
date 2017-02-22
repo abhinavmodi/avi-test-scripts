@@ -83,4 +83,13 @@ The step below creates the specified number of instances for Avi SEs and configu
 The step below creates the specified number of instances to be used as test clients. Wait 5-10 min for all test instances to be up and running  
 - ./perf_init.py -a createclient -f config.yaml  
 The step below starts _ab_ on all client instances. Running the command again stops and re-starts _ab_ on all instances  
-- ./perf_init.py -a starttest -f config.yaml
+- ./perf_init.py -a starttest -f config.yaml  
+
+### Cleanup
+
+- ./perf_init.py -a stoptest -f config.yaml
+- ./perf_init.py -a deleteclient -f config.yaml
+- ./perf_init.py -a deletevs -f config.yaml
+- ./perf_init.py -a deletepool -f config.yaml
+- ./perf_init.py -a deletese -f config.yaml
+- ./perf_init.py -a deletecloud -f config.yaml
