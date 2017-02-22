@@ -16,12 +16,14 @@ Refer to this [blog] (https://blog.avinetworks.com/elastic-load-balancing-at-lud
 - To reach a million TPS, you need atleast 40 instances of type n1-highcpu-32 and 320 instances of type n1-highcpu-16 for use. Create or use a /23 subnet with sufficient IP addresses
 - Create a custom centos7 image with packages docker, psmisc and httpd-tools installed using these [instructions](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images) from GCP
 - Create a n1-standard-4 instance, download and start a Avi Controller instance following the instructions [here] (https://kb.avinetworks.com/avi-deployment-guide-for-google-cloud-platform-gcp/)
+- Perform initial setup on Avi Controller 
 - Create another g1-small instance with scopes ‘compute-rw’ for use as a bootstrap instance to run these test scripts. git clone or copy these scripts to this instance
-    - sudo yum install -y epel-release python-yaml
+    - sudo yum install -y epel-release python-yaml git
     - sudo yum install -y python-pip
     - sudo pip install --upgrade pip
     - sudo pip install httplib2 oauth2client google-api-python-client avisdk
     - sudo yum install -y gcc python-devel openssl-devel fabric
+    - git clone https://github.com/avinetworks/avi-test-scripts.git
 
 ## Configure config.yaml
 
@@ -68,3 +70,17 @@ vip: Use the single IP Address in the IP Address pool
 **client_threads**: Set to same number as number of cores for instance. If instance type is n1-highcpu-16, set to 16  
 **external_access**: set to false. External IP isn’t needed  
 **yum_install**: Custom image has ‘*ab*’ pre-installed  
+
+### Running the test
+
+- cd avi-test-scripts/perf-scripts  
+This step creates Linux Server cloud in Avi Controller  
+- ./perf_init.py -a createcloud -f config.yaml  
+The step below creates an instance that acts as a pool member  
+- ./perf_init.py -a createpool -f config.yaml  
+The step below creates the specified number of instances for Avi SEs and configures Avi Controller to spin up Avi SEs. Wait until all Avi SEs turn Green in the Infrastructure -> Dashboard page on Avi Controller. It can take upto 10 minutes for all Avi SEs to be up  
+- ./perf_init.py -a createse -f config.yaml  
+The step below creates the specified number of instances to be used as test clients. Wait 5-10 min for all test instances to be up and running  
+- ./perf_init.py -a createclient -f config.yaml  
+The step below starts _ab_ on all client instances. Running the command again stops and re-starts _ab_ on all instances  
+- ./perf_init.py -a starttest -f config.yaml
