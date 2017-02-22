@@ -17,6 +17,11 @@ Refer to this [blog] (https://blog.avinetworks.com/elastic-load-balancing-at-lud
 - Create a custom centos7 image with packages docker, psmisc and httpd-tools installed using these [instructions](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images) from GCP
 - Create a n1-standard-4 instance, download and start a Avi Controller instance following the instructions [here] (https://kb.avinetworks.com/avi-deployment-guide-for-google-cloud-platform-gcp/)
 - Create another g1-small instance with scopes ‘compute-rw’ for use as a bootstrap instance to run these test scripts. git clone or copy these scripts to this instance
+    - sudo yum install -y epel-release python-yaml
+    - sudo yum install -y python-pip
+    - sudo pip install --upgrade pip
+    - sudo pip install httplib2 oauth2client google-api-python-client avisdk
+    - sudo yum install -y gcc python-devel openssl-devel fabric
 
 ## Configure config.yaml
 
