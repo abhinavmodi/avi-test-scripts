@@ -25,7 +25,8 @@ clouddata:
     ipam_end: 52.52.52.2
     datascript: perf-vs-datascript
     virtualservice: perf-vs
-    vip: 52.52.52.2
+# Use a VIP outside the ipam range above. We just need a single VIP
+    vip: 52.52.52.3
     port: 443
     ssl_cert: System-Default-Cert-EC
 # Should be the subnet where SE instances are present
