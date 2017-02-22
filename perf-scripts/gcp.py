@@ -44,10 +44,8 @@ class FabricException(Exception):
 class gcp(Cloud):
     def __init__(self, cloud, log):
         super(gcp, self).__init__(cloud, log)
-        self.http = httplib2.Http()
         credentials = GoogleCredentials.get_application_default()
-        self.compute = discovery.build('compute', 'v1', credentials=credentials,
-                                       http=self.http)
+        self.compute = discovery.build('compute', 'v1', credentials=credentials)
         fabric_env.warn_only = True
         fabric_env.use_shell = False
         fabric_env.skip_bad_hosts = True
@@ -403,7 +401,7 @@ class gcp(Cloud):
 
         for retry in range(5):
             try:
-                batch.execute(http=self.http)
+                batch.execute()
                 break
             except:
                 self.log.error('gcp: batch execute failed retry %d %s', retry, 
