@@ -80,6 +80,8 @@ The step below creates an instance that acts as a pool member
 - ./perf_init.py -a createpool -f config.yaml  
 The step below creates the specified number of instances for Avi SEs and configures Avi Controller to spin up Avi SEs. Wait until all Avi SEs turn Green in the Infrastructure -> Dashboard page on Avi Controller. It can take upto 10 minutes for all Avi SEs to be up  
 - ./perf_init.py -a createse -f config.yaml  
+The step below creates a VirtualService across all the Avi SEs  
+- ./perf_init.py -a createvs -f config.yaml  
 The step below creates the specified number of instances to be used as test clients. Wait 5-10 min for all test instances to be up and running  
 - ./perf_init.py -a createclient -f config.yaml  
 The step below starts _ab_ on all client instances. Running the command again stops and re-starts _ab_ on all instances  
