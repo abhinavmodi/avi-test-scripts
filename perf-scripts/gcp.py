@@ -9,6 +9,7 @@ from fabric.api import task, sudo, execute, run
 
 from fabric.context_managers import settings
 from fabric.state import output as fabric_output
+import os
 
 @task
 def install_ab_task(image_family='centos'):
@@ -58,7 +59,12 @@ class gcp(Cloud):
         fabric_env.abort_on_prompts = True
         fabric_env.port = 22
         fabric_env.user = cloud['clouddata']['ssh_username']
-        fabric_env.key = cloud['clouddata']['ssh_private_key']
+        ssh_key_file = os.path.expanduser('~') + '/gcp_key'
+        if not os.path.isfile(ssh_key_file):
+            with open(ssh_key_file, 'w') as f:
+                f.write(cloud['clouddata']['ssh_private_key'])
+        os.chmod(ssh_key_file, 0400)
+        fabric_env.key_filename = ssh_key_file
         fabric_output['everything'] = False
         fabric_output['exceptions'] = False
         fabric_output['status'] = False
