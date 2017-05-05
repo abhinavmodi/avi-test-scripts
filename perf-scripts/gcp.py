@@ -704,7 +704,7 @@ class gcp(Cloud):
         cloud = ctrlr_inst_info.get('cloud', 'Default-Cloud')
         cloud_obj = avi_api.get_object_by_name('cloud', cloud)
         if not cloud_obj:
-            cloud_obj = {'type': 'CLOUD_LINUXSERVER', 'ipam_provider_ref':
+            cloud_obj = {'vtype': 'CLOUD_LINUXSERVER', 'ipam_provider_ref':
                 ipam_obj['url'], 'linuxserver_configuration': {'ssh_attr':
                     {'ssh_user': ssh_user}}}
             resp = avi_api.post('cloud', data=cloud_obj)
@@ -713,7 +713,7 @@ class gcp(Cloud):
                 self.log.warn('Error creating cloud obj %s' % resp.status_code)
                 return
         else:
-            cloud_obj['type'] = 'CLOUD_LINUXSERVER'
+            cloud_obj['vtype'] = 'CLOUD_LINUXSERVER'
             cloud_obj['ipam_provider_ref'] = ipam_obj['url']
             if 'linuxserver_configuration' not in cloud_obj:
                 cloud_obj['linuxserver_configuration'] = {}
