@@ -774,7 +774,7 @@ class gcp(Cloud):
                 return
         else:
             ds_obj['name'] = ds_name
-            ds_obj['datascript'] = [{'evt': 'VS_DATASCRIPT_EVT_HTTP_RESP', \
+            ds_obj['datascript'] = [{'evt': 'VS_DATASCRIPT_EVT_HTTP_REQ', \
                 'script': 'avi.http.response(200)'}]
             put_rsp = avi_api.put('vsdatascriptset/%s' % ds_obj['uuid'], 
                               data=ds_obj)
