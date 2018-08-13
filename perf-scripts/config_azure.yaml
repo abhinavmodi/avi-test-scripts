@@ -1,0 +1,78 @@
+log: stdout
+clouddata:
+  kind: azure
+  name: azure_environment
+  prefix: aviuser-test-
+  ssh_username: aviuser
+  ssh_public_key: |-
+    ssh-rsa AAAAB3N... aviuser@aviuser-macbook.local
+  ssh_private_key: |-
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAKCAQEAvWWVgy0pfzyR1gPELg5XwxybhYepOeasUcTtvH0kbwBG1gl1
+    ...
+    U1YOIYvXwWFQLWIUvyOgnyT4bW0OLa8OrJEq1/DaH8gpvvFi8qRK
+    -----END RSA PRIVATE KEY-----
+  avicontroller: 
+    api_endpoint: 10.8.0.15
+    username: admin
+    password: avi123$%
+    tenant: admin
+    cloud: Default-Cloud
+    network: perf-network
+    ipam: perf-ipam
+    ipam_subnet: 52.52.52.0/24
+    ipam_start: 52.52.52.2
+    ipam_end: 52.52.52.2
+    datascript: perf-vs-datascript
+    virtualservice: perf-vs
+# Use a VIP outside the ipam range above. We just need a single VIP
+    vip: 52.52.52.3
+    port: 443
+    ssl_cert: System-Default-Cert-EC
+# Should be the subnet where SE instances are present
+    placement_subnet: 10.9.0.0/24
+# Controller requires GCP API access
+    external_access: true
+  pool:
+    name: perf-pool
+    instance_type: g1-small
+    instances: 1
+    image_project: centos-cloud
+# You can either specify image_family (standard image) or image_name for a
+# custom image
+    image_family: centos-7
+    project: astral-chassis-12345
+    zone: us-central1-b
+    subnet: projects/astral-chassis-12345/regions/us-central1/subnetworks/net1-subnet4
+    canIpForward: true
+    diskSizeGb: 20
+    tags:
+      - http-server
+      - https-server
+    external_access: true
+    yum_install: true 
+  avise:
+    instance_type: n1-highcpu-32
+    instances: 4
+    zone: us-central1-b
+    diskSizeGb: 20
+    tags:
+      - http-server
+      - https-server
+  client:
+    instance_type: n1-highcpu-16
+    preemptible: yes
+    instances: 16
+    client_threads: 16
+    image_project: astral-chassis-12345
+# custom image with docker installed. If no external access, yum install fails
+    image_name: centos7-docker
+    project: astral-chassis-12345
+    zone: us-central1-b
+    subnet: projects/astral-chassis-12345/regions/us-central1/subnetworks/net1-subnet4
+    diskSizeGb: 20
+    tags:
+      - http-server
+      - https-server
+    external_access: false
+    yum_install: false # No ab install. Custom image has ab installed
