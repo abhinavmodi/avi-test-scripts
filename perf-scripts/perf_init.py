@@ -126,6 +126,9 @@ if __name__ == "__main__":
     if cloud_data['clouddata']['kind'] == 'gcp':
         cloud_obj = gcp(cloud_data, logger)
 
+    if cloud_data['clouddata']['kind'] == 'azure':
+        cloud_obj = azure(cloud_data, logger)
+
     if args.action == 'createclient':
         createclient(cloud_obj, logger)
     elif args.action == 'createse':
